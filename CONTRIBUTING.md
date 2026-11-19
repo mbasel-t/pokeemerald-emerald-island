@@ -44,6 +44,8 @@ patch, and continue their game.
   `include/pokemon_storage_system.h`, `include/save.h`, `src/save.c` or
   `src/load_save.c` must say so in its description and explain why the layout
   is unchanged.
+- Moves and abilities end up in saved Pokémon. Add them by following
+  [docs/adding-abilities-and-moves.md](docs/adding-abilities-and-moves.md).
 
 ### R3. Stay on vanilla pokeemerald
 
