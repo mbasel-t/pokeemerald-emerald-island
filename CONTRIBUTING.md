@@ -74,6 +74,9 @@ patch, and continue their game.
   not Dex numbers.
 - Keep a running tally of allocated Dex numbers and species IDs in the issue
   that adds them, and update it in the PR.
+- Add every species and form by following
+  [docs/adding-a-pokemon.md](docs/adding-a-pokemon.md), which also holds the
+  project-wide tally.
 
 ### R6. Story progress uses only unused vanilla flags and vars
 
