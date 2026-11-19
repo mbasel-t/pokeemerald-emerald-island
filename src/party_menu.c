@@ -300,6 +300,7 @@ static void UpdatePartyToFieldOrder(void);
 static void MoveCursorToConfirm(void);
 static void HandleChooseMonCancel(u8, s8 *);
 static void HandleChooseMonSelection(u8, s8 *);
+static void HandleSelectButtonSwitch(u8, s8 *);
 static u16 PartyMenuButtonHandler(s8 *);
 static s8 *GetCurrentPartySlotPtr(void);
 static bool8 IsSelectedMonNotEgg(u8 *);
@@ -1277,7 +1278,44 @@ void Task_HandleChooseMonInput(u8 taskId)
                 MoveCursorToConfirm();
             }
             break;
+        case SELECT_BUTTON:
+            HandleSelectButtonSwitch(taskId, slotPtr);
+            break;
         }
+    }
+}
+
+// SELECT swaps party slots in the field party menu (#36), skipping the
+// SWITCH entry of the action menu. SELECT on a Pokémon starts a switch, as if
+// SWITCH had been chosen for it. While switching, SELECT works like A: on
+// another Pokémon it swaps them, on the same one or on CANCEL it cancels.
+// B cancels as usual. Only in the plain field menu (start menu > POKéMON),
+// never in battle, contests, the Frontier, giving items or move tutors.
+static void HandleSelectButtonSwitch(u8 taskId, s8 *slotPtr)
+{
+    if (gPartyMenu.menuType != PARTY_MENU_TYPE_FIELD || InBattlePike() || InMultiPartnerRoom())
+        return;
+
+    switch (gPartyMenu.action)
+    {
+    case PARTY_ACTION_CHOOSE_MON:
+        // Same conditions as the SWITCH entry in SetPartyMonFieldSelectionActions
+        if (*slotPtr < PARTY_SIZE && GetMonData(&gPlayerParty[1], MON_DATA_SPECIES) != SPECIES_NONE)
+        {
+            PlaySE(SE_SELECT);
+            gPartyMenu.action = PARTY_ACTION_SWITCH;
+            DisplayPartyMenuStdMessage(PARTY_MSG_MOVE_TO_WHERE);
+            AnimatePartySlot(gPartyMenu.slotId, 1);
+            gPartyMenu.slotId2 = gPartyMenu.slotId;
+        }
+        break;
+    case PARTY_ACTION_SWITCH:
+        PlaySE(SE_SELECT);
+        if (*slotPtr < PARTY_SIZE)
+            SwitchSelectedMons(taskId); // Cancels if it's the same Pokémon
+        else
+            FinishTwoMonAction(taskId);
+        break;
     }
 }
 
@@ -1498,6 +1536,9 @@ static u16 PartyMenuButtonHandler(s8 *slotPtr)
     // Pressed Cancel
     if (JOY_NEW(A_BUTTON) && *slotPtr == PARTY_SIZE + 1)
         return B_BUTTON;
+
+    if (JOY_NEW(SELECT_BUTTON))
+        return SELECT_BUTTON;
 
     return JOY_NEW(A_BUTTON | B_BUTTON);
 }
