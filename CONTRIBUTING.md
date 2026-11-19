@@ -85,6 +85,8 @@ patch, and continue their game.
   PR, and note the original name in a comment so it can be audited.
 - Before using one, search the code and scripts to confirm vanilla really
   never touches it. "Unused" in the name is not proof.
+- Item balls, hidden items and one-time gifts each need a flag. Add items by
+  following [docs/adding-an-item.md](docs/adding-an-item.md).
 
 ### R7. CI must keep checking what matters
 
