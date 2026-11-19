@@ -188,7 +188,12 @@ future you understand, without re-reading the diff:
 - **Build**: `make` succeeds locally and in CI.
 - **Play-test**: the change is exercised in an emulator (mGBA recommended),
   from a save that reaches the content.
-- **Vanilla save test** (required when the `save-compat` label applies, and
+- **Automated save-load test** (every PR, in CI): `test/savetest/run.sh`
+  boots each save in `test/saves/` headless in mGBA, continues into the
+  overworld, keeps running for 10 seconds, and compares player, party,
+  badges, money, play time, Pokédex and location against the save's
+  `expected.json`. Run it locally after `make all syms` (needs `libmgba-dev`).
+- **Manual vanilla save test** (required when the `save-compat` label applies, and
   before every release): load a save made on the unmodified game, save again,
   reload, and confirm party, boxes, bag, Pokédex and story progress are intact.
 - **Patch test** (releases): generate the BPS from the build, apply it to a

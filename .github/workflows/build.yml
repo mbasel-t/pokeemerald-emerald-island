@@ -30,9 +30,10 @@ jobs:
       - name: Install binutils
         run: |
           sudo apt update
-          sudo apt install gcc-arm-none-eabi binutils-arm-none-eabi libpng-dev
+          sudo apt install -y gcc-arm-none-eabi binutils-arm-none-eabi libpng-dev libmgba-dev
         # build-essential and git are already installed
         # gcc-arm-none-eabi is only needed for the modern build
+        # libmgba-dev runs the save-load test
 
       - name: Install agbcc
         run: |
@@ -42,6 +43,20 @@ jobs:
 
       - name: Build (agbcc)
         run: make -j$(nproc) all syms
+
+      # Boots every save in test/saves/ headless in mGBA and checks it loads
+      # into the overworld with the expected data (CONTRIBUTING.md R2).
+      - name: Save-load test
+        run: test/savetest/run.sh
+
+      - name: Upload save-load test output
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: savetest-output
+          path: |
+            build/savetest/*/result.txt
+            build/savetest/*/screenshot.ppm
 
       - name: Build (modern)
         env:

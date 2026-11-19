@@ -1,0 +1,16 @@
+{
+  "player_name": "ISLAND",
+  "gender": "male",
+  "trainer_id": 24099,
+  "money": 23490,
+  "badges": 3,
+  "play_time": "01:55",
+  "pokedex_seen": 42,
+  "pokedex_owned": 3,
+  "map": "MAP_ROUTE109",
+  "party": [
+    {"species": "SPECIES_COMBUSKEN", "nickname": "COMBUSKEN", "level": 25},
+    {"species": "SPECIES_TOGETIC", "nickname": "TOGETIC", "level": 25},
+    {"species": "SPECIES_MIGHTYENA", "nickname": "MIGHTYENA", "level": 25}
+  ]
+}

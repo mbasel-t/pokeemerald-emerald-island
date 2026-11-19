@@ -17,8 +17,9 @@ the point in the game it was made, so it's always clear which file is which.
   so they are real vanilla saves (R2).
 - Use the in-game Start menu → Save. Emulator save states are not `.sav`
   files and don't count.
-- Each folder holds exactly one `.sav` plus a `README.md` with the values
-  below, which #11's data check compares against.
+- Each folder holds exactly one `.sav` named after the folder, a `README.md`
+  describing it, and an `expected.json` with the values CI checks after
+  loading it (see [`test/savetest/`](../savetest/)).
 - `.sav` files are normally ignored by git; `.gitignore` has an exception for
   this folder only.
 
@@ -28,4 +29,8 @@ the point in the game it was made, so it's always clear which file is which.
 2. Put the `.sav` in it, named the same as the folder (e.g. `badge5-norman.sav`).
 3. Copy the "What to record" section from
    [`badge3-wattson/README.md`](badge3-wattson/README.md) and fill it in.
-4. Add a row to the table above and commit through a PR.
+   Copy `badge3-wattson/expected.json` and change it to the same values.
+   `pokedex_seen`/`pokedex_owned` are the counts the Pokédex screen shows
+   (Hoenn Dex until the National Dex is unlocked); `map` is the `MAP_` name.
+4. Run `test/savetest/run.sh` to confirm it passes.
+5. Add a row to the table above and commit through a PR.
