@@ -77,6 +77,7 @@ static const u8 sWindowVerticalScrollSpeeds[] = {
     [OPTIONS_TEXT_SPEED_SLOW] = 1,
     [OPTIONS_TEXT_SPEED_MID] = 2,
     [OPTIONS_TEXT_SPEED_FAST] = 4,
+    [OPTIONS_TEXT_SPEED_INSTANT] = 16, // Whole line in one frame
 };
 
 static const struct GlyphWidthFunc sGlyphWidthFuncs[] =
@@ -316,6 +317,17 @@ bool16 AddTextPrinter(struct TextPrinterTemplate *printerTemplate, u8 speed, Tex
     return TRUE;
 }
 
+// INSTANT text speed (#38): a printer running at the fastest delay prints up
+// to this many characters per frame instead of one. It still stops at every
+// button wait, scroll, pause or sound wait, so paging and scripted waits are
+// unchanged; only the time spent drawing characters goes away.
+#define INSTANT_TEXT_MAX_CHARS_PER_FRAME 128
+
+static bool32 IsTextPrinterInstant(struct TextPrinter *textPrinter)
+{
+    return textPrinter->textSpeed == 0 && GetPlayerTextSpeed() == OPTIONS_TEXT_SPEED_INSTANT;
+}
+
 void RunTextPrinters(void)
 {
     int i;
@@ -327,6 +339,28 @@ void RunTextPrinters(void)
             if (sTextPrinters[i].active)
             {
                 u16 renderCmd = RenderFont(&sTextPrinters[i]);
+
+                if (renderCmd == RENDER_PRINT && IsTextPrinterInstant(&sTextPrinters[i]))
+                {
+                    // Keep printing characters this frame. The callback still
+                    // runs once per character, so callbacks that react to a
+                    // specific character (Birch's intro pause) or that stop
+                    // the printers (the Mauville bard) behave as before.
+                    u32 chars = 1;
+                    do
+                    {
+                        if (sTextPrinters[i].callback != NULL)
+                            sTextPrinters[i].callback(&sTextPrinters[i].printerTemplate, RENDER_PRINT);
+                        if (gDisableTextPrinters || chars++ >= INSTANT_TEXT_MAX_CHARS_PER_FRAME)
+                            break;
+                        renderCmd = RenderFont(&sTextPrinters[i]);
+                    } while (renderCmd == RENDER_PRINT);
+
+                    CopyWindowToVram(sTextPrinters[i].printerTemplate.windowId, COPYWIN_GFX);
+                    if (renderCmd == RENDER_PRINT)
+                        continue; // Callback already ran for this character
+                }
+
                 switch (renderCmd)
                 {
                 case RENDER_PRINT:
