@@ -31,7 +31,7 @@ Ideas here aren't commitments until they have an issue.
 - Story beats are locked behind badge counts so players can't get powerful
   Pokémon (including legendaries) too early.
 - Gates read the vanilla badge flags (`FLAG_BADGE01_GET`..`FLAG_BADGE08_GET`)
-  and, for post-game content, the Champion flag; DLC progress itself uses
+  and, for post-game content, `FLAG_SYS_GAME_CLEAR`; DLC progress itself uses
   unused flags/vars (R6).
 - Open questions: which beats and Pokémon sit behind which badge.
 
