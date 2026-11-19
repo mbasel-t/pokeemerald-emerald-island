@@ -23,9 +23,9 @@ Fill this in when adding the save. #11's data check compares against it.
 - Gender: Male
 - Trainer ID: 24099
 - Badges: Stone, Knuckle, Dynamo
-- Money: 23,490
-- Play time (hh:mm): 01:55
-- Pokédex seen / owned: 42 / 3
+- Money: 14,553
+- Play time (hh:mm): 02:09
+- Pokédex seen / owned: 43 / 6
 - Party:
 
   | Slot | Species | Nickname | Level |
