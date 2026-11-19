@@ -463,8 +463,12 @@ STATIC_ASSERT(sizeof(((struct BattleStruct *)0)->palaceFlags) * 8 >= MAX_BATTLER
         typeArg = gBattleMoves[move].type;                            \
 }
 
-#define IS_TYPE_PHYSICAL(moveType) (moveType < TYPE_MYSTERY)
-#define IS_TYPE_SPECIAL(moveType) (moveType > TYPE_MYSTERY)
+// Emerald Island: Ghost is special and Dark is physical (#3). Physicality is
+// still decided by type, but no longer only by the type's position relative to
+// TYPE_MYSTERY. Any type added after TYPE_DARK (e.g. a future TYPE_FAIRY) is
+// special.
+#define IS_TYPE_PHYSICAL(moveType) ((((moveType) < TYPE_MYSTERY) && ((moveType) != TYPE_GHOST)) || ((moveType) == TYPE_DARK))
+#define IS_TYPE_SPECIAL(moveType) (!IS_TYPE_PHYSICAL(moveType) && ((moveType) != TYPE_MYSTERY))
 
 #define TARGET_TURN_DAMAGED ((gSpecialStatuses[gBattlerTarget].physicalDmg != 0 || gSpecialStatuses[gBattlerTarget].specialDmg != 0))
 
