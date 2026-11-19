@@ -30,9 +30,9 @@ Fill this in when adding the save. #11's data check compares against it.
 
   | Slot | Species | Nickname | Level |
   |---|---|---|---|
-  | 1 | Combusken | COMBUSKEN | 25 |
+  | 1 | Mightyena | MIGHTYENA | 25 |
   | 2 | Togetic | TOGETIC | 25 |
-  | 3 | Mightyena | MIGHTYENA | 25 |
+  | 3 | Combusken | COMBUSKEN | 25 |
   | 4 | | | |
   | 5 | | | |
   | 6 | | | |
