@@ -54,6 +54,9 @@ patch, and continue their game.
   data (for example, the HGSS-style Pokédex "Forms" screen for multi-form
   species such as Indeedee). A ported feature gets its own issue, and the PR
   credits the source and lists what was removed or adapted.
+- Anything made by someone else (ported or tutorial code, graphics, sound) and
+  every new collaborator is credited in [CREDITS.md](CREDITS.md), in the same
+  PR that brings it in.
 
 ### R4. Pokédex flags stay at 52 bytes
 
@@ -234,3 +237,4 @@ play-tested where it matters.
   a ROM (R1).
 - Release notes list the base ROM (`BPEE`, rev 0, SHA-1 from `rom.sha1`), what
   changed, and that vanilla saves are supported.
+- Release notes credit everyone listed in [CREDITS.md](CREDITS.md).
