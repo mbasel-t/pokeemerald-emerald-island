@@ -16,6 +16,7 @@ Closes #
 - [ ] No ROM, patched ROM or commercial save is included (R1)
 - [ ] Save layout is unchanged (R2). Touches save-related files: yes / no
 - [ ] Based on vanilla pokeemerald; any ported code is credited (R3)
+- [ ] Third-party code, graphics or sound and new collaborators are credited in `CREDITS.md` (R3)
 - [ ] `NUM_DEX_FLAG_BYTES` is still 52 (R4)
 - [ ] Species / Dex budget updated: Dex __ / 30, species IDs __ / 125 (R5)
 - [ ] New story state uses only verified-unused vanilla flags/vars (R6)
