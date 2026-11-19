@@ -3,6 +3,7 @@
 #include "battle_pyramid.h"
 #include "battle_pyramid_bag.h"
 #include "bg.h"
+#include "decompress.h"
 #include "event_data.h"
 #include "event_object_movement.h"
 #include "event_object_lock.h"
@@ -46,6 +47,111 @@
 #include "constants/battle_frontier.h"
 #include "constants/rgb.h"
 #include "constants/songs.h"
+
+// Save throbber (#33). Based on the pret wiki tutorial "Show a throbber
+// animation while the game is saving" by meejle, with help from Anon822.
+// The graphic is meejle's throbber.png from that tutorial.
+#define TAG_THROBBER 0x1000
+
+static const u16 sThrobber_Pal[] = INCBIN_U16("graphics/text_window/throbber.gbapal");
+static const u32 sThrobber_Gfx[] = INCBIN_U32("graphics/text_window/throbber.4bpp.lz");
+
+static EWRAM_DATA u8 sThrobberSpriteId = 0;
+static EWRAM_DATA bool8 sThrobberShown = FALSE;
+
+static const struct OamData sOam_Throbber =
+{
+    .y = DISPLAY_HEIGHT,
+    .affineMode = ST_OAM_AFFINE_OFF,
+    .objMode = ST_OAM_OBJ_NORMAL,
+    .mosaic = FALSE,
+    .bpp = ST_OAM_4BPP,
+    .shape = SPRITE_SHAPE(32x64),
+    .x = 0,
+    .matrixNum = 0,
+    .size = SPRITE_SIZE(32x64),
+    .tileNum = 0,
+    .priority = 0,
+    .paletteNum = 0,
+    .affineParam = 0,
+};
+
+static const union AnimCmd sAnim_Throbber[] =
+{
+    ANIMCMD_FRAME(0, 4),
+    ANIMCMD_FRAME(32, 4),
+    ANIMCMD_FRAME(64, 4),
+    ANIMCMD_FRAME(96, 4),
+    ANIMCMD_FRAME(128, 4),
+    ANIMCMD_FRAME(160, 4),
+    ANIMCMD_FRAME(192, 4),
+    ANIMCMD_FRAME(224, 4),
+    ANIMCMD_JUMP(0),
+};
+
+static const union AnimCmd *const sAnims_Throbber[] = { sAnim_Throbber };
+
+// 8 frames of 32x64 4bpp
+static const struct CompressedSpriteSheet sSpriteSheet_Throbber =
+{
+    .data = sThrobber_Gfx,
+    .size = 8 * (32 * 64 / 2),
+    .tag = TAG_THROBBER,
+};
+
+static const struct SpritePalette sSpritePalette_Throbber =
+{
+    .data = sThrobber_Pal,
+    .tag = TAG_THROBBER,
+};
+
+static const struct SpriteTemplate sSpriteTemplate_Throbber =
+{
+    .tileTag = TAG_THROBBER,
+    .paletteTag = TAG_THROBBER,
+    .oam = &sOam_Throbber,
+    .anims = sAnims_Throbber,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = SpriteCallbackDummy,
+};
+
+static void ShowSaveThrobber(void)
+{
+    if (sThrobberShown)
+        return;
+    LoadCompressedSpriteSheet(&sSpriteSheet_Throbber);
+    LoadSpritePalette(&sSpritePalette_Throbber);
+    // Bottom-right corner of the message box, in pixels
+    sThrobberSpriteId = CreateSprite(&sSpriteTemplate_Throbber, 217, 123, 2);
+    if (sThrobberSpriteId != MAX_SPRITES)
+        sThrobberShown = TRUE;
+    else
+    {
+        FreeSpriteTilesByTag(TAG_THROBBER);
+        FreeSpritePaletteByTag(TAG_THROBBER);
+    }
+}
+
+static void HideSaveThrobber(void)
+{
+    if (sThrobberShown)
+    {
+        DestroySpriteAndFreeResources(&gSprites[sThrobberSpriteId]);
+        sThrobberShown = FALSE;
+    }
+}
+
+// The main loop doesn't run while TrySavingData writes to flash, so this keeps
+// the throbber animating from VBlank instead. It is set only around the
+// TrySavingData call below; save.c and the order of writes are unchanged.
+static void VBlankCB_SaveThrobber(void)
+{
+    AnimateSprites();
+    BuildOamBuffer();
+    LoadOam();
+    ProcessSpriteCopyRequests();
+}
 
 // Menu actions
 enum
@@ -1079,6 +1185,7 @@ static u8 SaveOverwriteInputCallback(void)
 
 static u8 SaveSavingMessageCallback(void)
 {
+    ShowSaveThrobber();
     ShowSaveMessage(gText_SavingDontTurnOff, SaveDoSaveCallback);
     return SAVE_IN_PROGRESS;
 }
@@ -1086,9 +1193,13 @@ static u8 SaveSavingMessageCallback(void)
 static u8 SaveDoSaveCallback(void)
 {
     u8 saveStatus;
+    IntrCallback prevVBlankCB;
 
     IncrementGameStat(GAME_STAT_SAVED_GAME);
     PausePyramidChallenge();
+
+    prevVBlankCB = gMain.vblankCallback;
+    SetVBlankCallback(VBlankCB_SaveThrobber);
 
     if (gDifferentSaveFile == TRUE)
     {
@@ -1099,6 +1210,9 @@ static u8 SaveDoSaveCallback(void)
     {
         saveStatus = TrySavingData(SAVE_NORMAL);
     }
+
+    SetVBlankCallback(prevVBlankCB);
+    HideSaveThrobber();
 
     if (saveStatus == SAVE_STATUS_OK)
         ShowSaveMessage(gText_PlayerSavedGame, SaveSuccessCallback);
