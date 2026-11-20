@@ -31,11 +31,13 @@ non-commercial fan project distributed only as a patch.
 
 | Who | What | Used in | Source | Terms |
 |---|---|---|---|---|
+| meejle, with help from Anon822 | Save throbber code (spinner while saving) | `src/start_menu.c` | [pret wiki: Show a throbber animation while the game is saving](https://github.com/pret/pokeemerald/wiki/Show-a-throbber-animation-while-the-game-is-saving) | Shared as a tutorial; asks for credit |
 
 ## Graphics
 
 | Who | What | Used in | Source | Terms |
 |---|---|---|---|---|
+| meejle | Save throbber animation (8 frames) | `graphics/text_window/throbber.png` | [meejle/rainbowamnesty](https://github.com/meejle/rainbowamnesty/blob/0.1/graphics/text_window/throbber.png), linked from the tutorial above | Offered for use in the tutorial with credit; the source repo has no licence file |
 
 ## Sound and music
 
