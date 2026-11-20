@@ -180,16 +180,30 @@ it's the last one in most tables).
 | `src/data/pokemon/pokedex_text.h` | `const u8 gNewmonPokedexText[] = _("...");` Four lines, human-written. |
 | `src/data/pokemon/pokedex_orders.h` | `gPokedexOrder_Alphabetical`: move the slot's line out of the old-Unown block at the top into alphabetical position (the array length stays the same). `gPokedexOrder_Weight` and `gPokedexOrder_Height`: **insert** the new Dex number in sorted position. These two have exactly `NATIONAL_DEX_COUNT` entries and are read up to that count, so forgetting one reads past the end. |
 
-**Hoenn Dex: open decision.** Before the player gets the National Dex
-(post-game), the Pokédex only shows Hoenn Dex species, and the summary screen
-shows no number for others. The DLC starts at the third badge, so a
-national-only species caught in the DLC won't appear in the Pokédex for most
-of the game. The alternative is to add it to the Hoenn Dex
-(`HOENN_DEX_COUNT`), but that changes what "complete Hoenn Dex" means for
-Birch's rating (`src/birch_pc.c`), the Hoenn diploma (`HasAllHoennMons()`),
-and trades (`IsSpeciesInHoennDex()` gates trading to players without the
-National Dex). Decide this once, in an issue, before the first species ships,
-and write the answer here.
+**Emerald Island Dex (decided).** DLC species go in their own regional Pokédex,
+the **Emerald Island Dex**, which the player is given when the DLC starts, the
+way the National Dex is given after the Hall of Fame. They are **not** added
+to the Hoenn Dex, so Birch's rating, the Hoenn diploma (`HasAllHoennMons()`)
+and Hoenn-only trade checks (`IsSpeciesInHoennDex()`) stay exactly as in
+vanilla.
+
+The Island Dex itself is a separate task (not built yet). Until it exists, a
+DLC species caught before the National Dex won't appear in the Pokédex, and
+the summary screen shows no number for it. When it's built, it should:
+
+- be a third Pokédex mode next to `DEX_MODE_HOENN` and `DEX_MODE_NATIONAL`
+  (`include/pokedex.h`, `sPokedexModes` in `src/pokedex.c`). The selected
+  mode is already saved in `gSaveBlock2Ptr->pokedex.mode`, a `u8`, so a new
+  value needs no layout change (R2);
+- be unlocked by one unused vanilla flag (R6), set when the DLC starts;
+- keep using the existing seen/caught flags, which are indexed by **national**
+  Dex number. The Island Dex is only a list and an order in ROM (like
+  `sHoennToNationalOrder`), so R4's 52-byte limit and the #387–#416 budget
+  still apply;
+- give the summary screen an Island Dex number for DLC species when the
+  National Dex isn't unlocked (`SpeciesToPokedexNum()` in `src/pokemon.c`).
+
+When adding a species, also add it to the Island Dex list once that exists.
 
 ### 3.5 Graphics
 
