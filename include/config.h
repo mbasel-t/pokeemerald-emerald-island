@@ -44,8 +44,8 @@
 #define CHAR_DEC_SEPARATOR CHAR_COMMA
 #endif
 
-// Uncomment to fix some identified minor bugs
-//#define BUGFIX
+// Fixes pret's documented vanilla bugs (issue #15). Comment out to get vanilla behavior.
+#define BUGFIX
 
 // Various undefined behavior bugs may or may not prevent compilation with
 // newer compilers. So always fix them when using a modern compiler.
