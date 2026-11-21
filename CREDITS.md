@@ -38,11 +38,19 @@ non-commercial fan project distributed only as a patch.
 | Who | What | Used in | Source | Terms |
 |---|---|---|---|---|
 | meejle | Save throbber animation (8 frames) | `graphics/text_window/throbber.png` | [meejle/rainbowamnesty](https://github.com/meejle/rainbowamnesty/blob/0.1/graphics/text_window/throbber.png), linked from the tutorial above | Offered for use in the tutorial with credit; the source repo has no licence file |
+| 11bayerf1 and Chaos Rush (Sugimori Palettes DS-Style 64x64 resource), assembled by the pokeemerald-expansion contributors | Starly front, back, shiny palette, icon and footprint | `graphics/pokemon/starly/` (`front.png` is the first frame of `anim_front.png`) | [PokéCommunity thread](https://www.pokecommunity.com/threads/sugimori-palettes-the-ds-style-64x64-pok%C3%A9mon-sprite-resource.336945/), copied from [rh-hideout/pokeemerald-expansion `graphics/pokemon/starly/`](https://github.com/rh-hideout/pokeemerald-expansion/tree/master/graphics/pokemon/starly) | Free to use in hacks with credit; the expansion repo has no licence file |
 
 ## Sound and music
 
 | Who | What | Used in | Source | Terms |
 |---|---|---|---|---|
+| GAME FREAK (original cry), converted to GBA format by the pokeemerald-expansion contributors | Starly's cry | `sound/direct_sound_samples/cries/starly.wav` | [rh-hideout/pokeemerald-expansion](https://github.com/rh-hideout/pokeemerald-expansion/blob/master/sound/direct_sound_samples/cries/starly.wav) | The expansion repo has no licence file |
+
+## Text
+
+| Who | What | Used in | Source | Terms |
+|---|---|---|---|---|
+| GAME FREAK (official English text), via the pokeemerald-expansion contributors | Starly's name, category and Pokédex entry | `src/data/text/species_names.h`, `src/data/pokemon/pokedex_entries.h`, `src/data/pokemon/pokedex_text.h` | [rh-hideout/pokeemerald-expansion `gen_4_families.h`](https://github.com/rh-hideout/pokeemerald-expansion/blob/master/src/data/pokemon/species_info/gen_4_families.h) | Only "Pokémon" was changed to "POKéMON" to match vanilla's spelling |
 
 ## Collaborators
 

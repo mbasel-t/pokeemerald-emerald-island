@@ -120,9 +120,9 @@ PR template's R5 line.
 
 | Species ID | Constant | Dex # | Form of | Issue / PR |
 |---|---|---|---|---|
-| — | — | — | — | — |
+| 252 | `SPECIES_STARLY` (was `OLD_UNOWN_B`) | 387 | — | #58 |
 
-**Used: Dex 0 / 30, species IDs 0 / 125** (of which 0 / 25 old-Unown slots).
+**Used: Dex 1 / 30, species IDs 1 / 125** (of which 1 / 25 old-Unown slots).
 
 ---
 
