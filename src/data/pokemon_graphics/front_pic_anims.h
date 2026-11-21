@@ -4582,6 +4582,16 @@ static const union AnimCmd sAnim_Chimecho_1[] =
     ANIMCMD_END,
 };
 
+static const union AnimCmd sAnim_Starly_1[] =
+{
+    ANIMCMD_FRAME(0, 5),
+    ANIMCMD_FRAME(1, 10),
+    ANIMCMD_FRAME(0, 10),
+    ANIMCMD_FRAME(1, 35),
+    ANIMCMD_FRAME(0, 5),
+    ANIMCMD_END,
+};
+
 static const union AnimCmd sAnim_Egg_1[] =
 {
     ANIMCMD_FRAME(0, 6),
@@ -5223,6 +5233,7 @@ DOUBLE_ANIMATION(Latios);
 DOUBLE_ANIMATION(Jirachi);
 DOUBLE_ANIMATION(Deoxys);
 SINGLE_ANIMATION(Chimecho);
+SINGLE_ANIMATION(Starly);
 SINGLE_ANIMATION(Egg);
 SINGLE_ANIMATION(UnownB);
 SINGLE_ANIMATION(UnownC);
@@ -5506,7 +5517,7 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_LUGIA]       = sAnims_Lugia,
     [SPECIES_HO_OH]       = sAnims_HoOh,
     [SPECIES_CELEBI]      = sAnims_Celebi,
-    [SPECIES_OLD_UNOWN_B] = sAnims_OldUnownB,
+    [SPECIES_STARLY]      = sAnims_Starly,
     [SPECIES_OLD_UNOWN_C] = sAnims_OldUnownB,
     [SPECIES_OLD_UNOWN_D] = sAnims_OldUnownB,
     [SPECIES_OLD_UNOWN_E] = sAnims_OldUnownB,

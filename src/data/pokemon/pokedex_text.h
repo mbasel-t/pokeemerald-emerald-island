@@ -2152,6 +2152,13 @@ const u8 gChimechoPokedexText[] = _(
     "themselves using seven different and\n"
     "distinguishing cries.");
 
+// Ported from pokeemerald-expansion (official English text)
+const u8 gStarlyPokedexText[] = _(
+    "They flock around mountains and fields,\n"
+    "chasing after bug POKéMON. However,\n"
+    "they bicker if the group grows too big.\n"
+    "Their singing is noisy and annoying.");
+
 const u8 gAbsolPokedexText[] = _(
     "It sharply senses even subtle changes in\n"
     "the sky and the land to predict natural\n"

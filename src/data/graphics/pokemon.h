@@ -2712,6 +2712,13 @@ const u32 gMonShinyPalette_Chimecho[] = INCGFX_U32("graphics/pokemon/chimecho/sh
 const u8 gMonIcon_Chimecho[] = INCGFX_U8("graphics/pokemon/chimecho/icon.png", ".4bpp");
 const u8 gMonFootprint_Chimecho[] = INCGFX_U8("graphics/pokemon/chimecho/footprint.png", ".1bpp");
 
+const u32 gMonStillFrontPic_Starly[] = INCGFX_U32("graphics/pokemon/starly/front.png", ".4bpp.lz");
+const u32 gMonPalette_Starly[] = INCGFX_U32("graphics/pokemon/starly/normal.pal", ".gbapal.lz");
+const u32 gMonBackPic_Starly[] = INCGFX_U32("graphics/pokemon/starly/back.png", ".4bpp.lz");
+const u32 gMonShinyPalette_Starly[] = INCGFX_U32("graphics/pokemon/starly/shiny.pal", ".gbapal.lz");
+const u8 gMonIcon_Starly[] = INCGFX_U8("graphics/pokemon/starly/icon.png", ".4bpp");
+const u8 gMonFootprint_Starly[] = INCGFX_U8("graphics/pokemon/starly/footprint.png", ".1bpp");
+
 const u32 gMonStillFrontPic_Egg[] = INCGFX_U32("graphics/pokemon/egg/front.png", ".4bpp.lz");
 const u32 gMonPalette_Egg[] = INCGFX_U32("graphics/pokemon/egg/normal.pal", ".gbapal.lz");
 

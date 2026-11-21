@@ -3444,8 +3444,18 @@ static const u16 sCelebiLevelUpLearnset[] = {
     LEVEL_UP_END
 };
 
-static const u16 sSpecies252LevelUpLearnset[] = {
+// Gen 4 (DPPt) learnset. Brave Bird (level 41) is left out until it exists.
+static const u16 sStarlyLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 5, MOVE_GROWL),
+    LEVEL_UP_MOVE( 9, MOVE_QUICK_ATTACK),
+    LEVEL_UP_MOVE(13, MOVE_WING_ATTACK),
+    LEVEL_UP_MOVE(17, MOVE_DOUBLE_TEAM),
+    LEVEL_UP_MOVE(21, MOVE_ENDEAVOR),
+    LEVEL_UP_MOVE(25, MOVE_WHIRLWIND),
+    LEVEL_UP_MOVE(29, MOVE_AERIAL_ACE),
+    LEVEL_UP_MOVE(33, MOVE_TAKE_DOWN),
+    LEVEL_UP_MOVE(37, MOVE_AGILITY),
     LEVEL_UP_END
 };
 

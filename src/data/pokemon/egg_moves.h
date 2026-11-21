@@ -1306,5 +1306,17 @@ const u16 gEggMoves[] = {
               MOVE_HYPNOSIS,
               MOVE_DREAM_EATER),
 
+    // Gen 4 (DPPt) egg moves
+    egg_moves(STARLY,
+              MOVE_FEATHER_DANCE,
+              MOVE_FURY_ATTACK,
+              MOVE_PURSUIT,
+              MOVE_ASTONISH,
+              MOVE_SAND_ATTACK,
+              MOVE_FORESIGHT,
+              MOVE_DOUBLE_EDGE,
+              MOVE_STEEL_WING,
+              MOVE_UPROAR),
+
     EGG_MOVES_TERMINATOR
 };

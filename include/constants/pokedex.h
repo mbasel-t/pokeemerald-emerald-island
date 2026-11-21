@@ -393,8 +393,9 @@ enum {
     NATIONAL_DEX_RAYQUAZA,
     NATIONAL_DEX_JIRACHI,
     NATIONAL_DEX_DEOXYS,
+    // Emerald Island (was Old Unown B)
+    NATIONAL_DEX_STARLY,
     // Old Unown
-    NATIONAL_DEX_OLD_UNOWN_B,
     NATIONAL_DEX_OLD_UNOWN_C,
     NATIONAL_DEX_OLD_UNOWN_D,
     NATIONAL_DEX_OLD_UNOWN_E,
@@ -423,7 +424,7 @@ enum {
 
 #define KANTO_DEX_COUNT     NATIONAL_DEX_MEW
 #define JOHTO_DEX_COUNT     NATIONAL_DEX_CELEBI
-#define NATIONAL_DEX_COUNT  NATIONAL_DEX_DEOXYS
+#define NATIONAL_DEX_COUNT  NATIONAL_DEX_STARLY // highest Dex number in use (docs/adding-a-pokemon.md)
 
 // Hoenn Pokédex order
 enum {
@@ -816,7 +817,7 @@ enum {
     HOENN_DEX_LUGIA,
     HOENN_DEX_HO_OH,
     HOENN_DEX_CELEBI,
-    HOENN_DEX_OLD_UNOWN_B,
+    HOENN_DEX_STARLY, // was HOENN_DEX_OLD_UNOWN_B, unused (not in the Hoenn Dex)
     HOENN_DEX_OLD_UNOWN_C,
     HOENN_DEX_OLD_UNOWN_D,
     HOENN_DEX_OLD_UNOWN_E,

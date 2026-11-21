@@ -358,7 +358,7 @@ static const u16 sSpeciesToHoennPokedexNum[NUM_SPECIES - 1] =
     SPECIES_TO_HOENN(LUGIA),
     SPECIES_TO_HOENN(HO_OH),
     SPECIES_TO_HOENN(CELEBI),
-    SPECIES_TO_HOENN(OLD_UNOWN_B),
+    SPECIES_TO_HOENN(STARLY),
     SPECIES_TO_HOENN(OLD_UNOWN_C),
     SPECIES_TO_HOENN(OLD_UNOWN_D),
     SPECIES_TO_HOENN(OLD_UNOWN_E),
@@ -774,7 +774,7 @@ static const u16 sSpeciesToNationalPokedexNum[NUM_SPECIES - 1] =
     SPECIES_TO_NATIONAL(LUGIA),
     SPECIES_TO_NATIONAL(HO_OH),
     SPECIES_TO_NATIONAL(CELEBI),
-    SPECIES_TO_NATIONAL(OLD_UNOWN_B),
+    SPECIES_TO_NATIONAL(STARLY),
     SPECIES_TO_NATIONAL(OLD_UNOWN_C),
     SPECIES_TO_NATIONAL(OLD_UNOWN_D),
     SPECIES_TO_NATIONAL(OLD_UNOWN_E),
@@ -1325,7 +1325,7 @@ static const u16 sHoennToNationalOrder[NUM_SPECIES - 1] =
     HOENN_TO_NATIONAL(LUGIA),
     HOENN_TO_NATIONAL(HO_OH),
     HOENN_TO_NATIONAL(CELEBI),
-    HOENN_TO_NATIONAL(OLD_UNOWN_B),
+    HOENN_TO_NATIONAL(STARLY),
     HOENN_TO_NATIONAL(OLD_UNOWN_C),
     HOENN_TO_NATIONAL(OLD_UNOWN_D),
     HOENN_TO_NATIONAL(OLD_UNOWN_E),
@@ -1790,6 +1790,7 @@ static const u8 sMonFrontAnimIdsTable[NUM_SPECIES - 1] =
     [SPECIES_JIRACHI - 1]     = ANIM_SWING_CONVEX,
     [SPECIES_DEOXYS - 1]      = ANIM_H_PIVOT,
     [SPECIES_CHIMECHO - 1]    = ANIM_H_SLIDE_WOBBLE,
+    [SPECIES_STARLY - 1]      = ANIM_V_STRETCH,
 };
 
 static const u8 sMonAnimationDelayTable[NUM_SPECIES - 1] =
@@ -5698,10 +5699,17 @@ u16 HoennToNationalOrder(u16 hoennNum)
     return sHoennToNationalOrder[hoennNum - 1];
 }
 
+// Index of Cry_Starly in gCryTable (sound/cry_tables.inc), right after Chimecho
+#define CRY_ID_STARLY 388
+
 u16 SpeciesToCryId(u16 species)
 {
     if (species <= SPECIES_CELEBI - 1)
         return species;
+
+    // Emerald Island species in the old-Unown slots have cries after Chimecho's.
+    if (species == SPECIES_STARLY - 1)
+        return CRY_ID_STARLY;
 
     if (species < SPECIES_TREECKO - 1)
         return SPECIES_UNOWN - 1;
